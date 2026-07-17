@@ -64,6 +64,38 @@ export default function Hero() {
           zIndex: 1,
         }}
       >
+        {/* CTA above the embed: StackBlitz's own "Fork" button inside
+            the embed is flaky (auth-loop on some browsers). This
+            surfaces the file-scoped URL directly so visitors can jump
+            to the full playground with README.md open. */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: 12,
+          }}
+        >
+          <a
+            href="https://stackblitz.com/github/vineethpawar/plyxui-demo?file=README.md"
+            target="_blank"
+            rel="noopener"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "8px 14px",
+              background: "var(--surface)",
+              border: "1px solid var(--stroke)",
+              borderRadius: 8,
+              color: "var(--text)",
+              fontSize: 13,
+              fontWeight: 500,
+              textDecoration: "none",
+            }}
+          >
+            View on StackBlitz →
+          </a>
+        </div>
         <div
           style={{
             background: "var(--surface)",
