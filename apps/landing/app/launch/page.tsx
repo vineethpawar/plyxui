@@ -120,7 +120,7 @@ export default function LaunchPage() {
             </div>
             <div style={{ position: "relative", paddingTop: "62%", background: "var(--bg)" }}>
               <iframe
-                src="https://stackblitz.com/github/vineethpawar/plyxui-demo?embed=1&file=src/App.tsx&hideNavigation=1&theme=light&view=preview&ctl=0"
+                src="https://plyxui-demo.vercel.app/"
                 title="plyxui dashboard demo"
                 loading="lazy"
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}

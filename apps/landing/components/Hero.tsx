@@ -76,7 +76,7 @@ export default function Hero() {
           }}
         >
           <a
-            href="https://stackblitz.com/github/vineethpawar/plyxui-demo?file=README.md"
+            href="https://stackblitz.com/github/vineethpawar/plyxui-demo"
             target="_blank"
             rel="noopener"
             style={{
@@ -157,12 +157,14 @@ export default function Hero() {
             </a>
           </div>
           <div style={{ position: "relative", paddingTop: "62%", background: "var(--bg)" }}>
-            {/* Live, interactive dashboard built with @plyxui/*. WebContainer
-                boots npm install + vite dev in the browser; what visitors see
-                here IS the package, not a screenshot. ~12-15s cold boot the
-                first time. */}
+            {/* Live, interactive dashboard built with @plyxui/*. Points at
+                the plyxui-demo Vercel deploy (github.com/vineethpawar/plyxui-demo
+                pushed to main → plyxui-demo.vercel.app). Instant load, no
+                WebContainer cold-boot, no ephemeral session URL. If a visitor
+                wants the source or wants to fork, the CTA in the title bar
+                takes them to StackBlitz. */}
             <iframe
-              src="https://stackblitz.com/github/vineethpawar/plyxui-demo?embed=1&file=src/App.tsx&hideNavigation=1&theme=light&view=preview&ctl=0"
+              src="https://plyxui-demo.vercel.app/"
               title="plyxui dashboard demo"
               loading="lazy"
               style={{
@@ -185,8 +187,9 @@ export default function Hero() {
             color: "var(--muted)",
           }}
         >
-          What you're seeing is the live StackBlitz boot of <a href="https://github.com/vineethpawar/plyxui-demo" target="_blank" rel="noopener">plyxui-demo</a> —
-          one Vite app, no monorepo, every component from <code>@plyxui/*</code>. Native sibling on <a href="https://snack.expo.dev/rxtGc5Lls8OUbbmv2_RhK" target="_blank" rel="noopener">Expo Snack</a>.
+          What you're seeing is <a href="https://github.com/vineethpawar/plyxui-demo" target="_blank" rel="noopener">plyxui-demo</a> — one Vite app,
+          no monorepo, every component from <code>@plyxui/*</code>. Fork it on <a href="https://stackblitz.com/github/vineethpawar/plyxui-demo" target="_blank" rel="noopener">StackBlitz</a>.
+          Native sibling on <a href="https://snack.expo.dev/rxtGc5Lls8OUbbmv2_RhK" target="_blank" rel="noopener">Expo Snack</a>.
         </p>
       </div>
     </section>
