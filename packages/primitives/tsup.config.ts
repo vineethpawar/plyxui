@@ -16,6 +16,8 @@ export default defineConfig({
     "flex.native":      "src/flex/index.native.tsx",
     "input":            "src/input/index.tsx",
     "input.native":     "src/input/index.native.tsx",
+    "textarea":         "src/textarea/index.tsx",
+    "textarea.native":  "src/textarea/index.native.tsx",
     "button":           "src/button/index.tsx",
     "button.native":    "src/button/index.native.tsx",
     "image":            "src/image/index.tsx",

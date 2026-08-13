@@ -73,6 +73,18 @@
       "require": "./dist/input.cjs",
       "default": "./dist/input.js"
     },
+    "./textarea": {
+      "react-native": {
+        "types": "./dist/textarea.native.d.ts",
+        "import": "./dist/textarea.native.js",
+        "require": "./dist/textarea.native.cjs",
+        "default": "./dist/textarea.native.js"
+      },
+      "types": "./dist/textarea.d.ts",
+      "import": "./dist/textarea.js",
+      "require": "./dist/textarea.cjs",
+      "default": "./dist/textarea.js"
+    },
     "./button": {
       "react-native": {
         "types": "./dist/button.native.d.ts",
