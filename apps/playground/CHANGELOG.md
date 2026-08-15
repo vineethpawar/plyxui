@@ -1,5 +1,12 @@
 # plyxui-playground
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [e2e3a77]
+  - @plyxui/primitives@0.5.0
+
 ## 0.0.2
 
 ### Patch Changes
