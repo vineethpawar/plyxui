@@ -24,6 +24,15 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from "./button";
 export { Image } from "./image";
 export type { ImageProps, ImageFit } from "./image";
 
+export { Card } from "./card";
+export type { CardProps, CardVariant, CardPadding, CardRadius } from "./card";
+
+export { Badge } from "./badge";
+export type { BadgeProps, BadgeTone, BadgeSize } from "./badge";
+
+export { Progress } from "./progress";
+export type { ProgressProps, ProgressTone, ProgressSize } from "./progress";
+
 export { Divider } from "./divider";
 export type { DividerProps } from "./divider";
 

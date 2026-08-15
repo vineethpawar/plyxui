@@ -109,6 +109,42 @@
       "require": "./dist/image.cjs",
       "default": "./dist/image.js"
     },
+    "./card": {
+      "react-native": {
+        "types": "./dist/card.native.d.ts",
+        "import": "./dist/card.native.js",
+        "require": "./dist/card.native.cjs",
+        "default": "./dist/card.native.js"
+      },
+      "types": "./dist/card.d.ts",
+      "import": "./dist/card.js",
+      "require": "./dist/card.cjs",
+      "default": "./dist/card.js"
+    },
+    "./badge": {
+      "react-native": {
+        "types": "./dist/badge.native.d.ts",
+        "import": "./dist/badge.native.js",
+        "require": "./dist/badge.native.cjs",
+        "default": "./dist/badge.native.js"
+      },
+      "types": "./dist/badge.d.ts",
+      "import": "./dist/badge.js",
+      "require": "./dist/badge.cjs",
+      "default": "./dist/badge.js"
+    },
+    "./progress": {
+      "react-native": {
+        "types": "./dist/progress.native.d.ts",
+        "import": "./dist/progress.native.js",
+        "require": "./dist/progress.native.cjs",
+        "default": "./dist/progress.native.js"
+      },
+      "types": "./dist/progress.d.ts",
+      "import": "./dist/progress.js",
+      "require": "./dist/progress.cjs",
+      "default": "./dist/progress.js"
+    },
     "./divider": {
       "react-native": {
         "types": "./dist/divider.native.d.ts",
