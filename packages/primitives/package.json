@@ -145,6 +145,30 @@
       "require": "./dist/progress.cjs",
       "default": "./dist/progress.js"
     },
+    "./switch": {
+      "react-native": {
+        "types": "./dist/switch.native.d.ts",
+        "import": "./dist/switch.native.js",
+        "require": "./dist/switch.native.cjs",
+        "default": "./dist/switch.native.js"
+      },
+      "types": "./dist/switch.d.ts",
+      "import": "./dist/switch.js",
+      "require": "./dist/switch.cjs",
+      "default": "./dist/switch.js"
+    },
+    "./segmented": {
+      "react-native": {
+        "types": "./dist/segmented.native.d.ts",
+        "import": "./dist/segmented.native.js",
+        "require": "./dist/segmented.native.cjs",
+        "default": "./dist/segmented.native.js"
+      },
+      "types": "./dist/segmented.d.ts",
+      "import": "./dist/segmented.js",
+      "require": "./dist/segmented.cjs",
+      "default": "./dist/segmented.js"
+    },
     "./divider": {
       "react-native": {
         "types": "./dist/divider.native.d.ts",
