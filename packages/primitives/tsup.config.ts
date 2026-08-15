@@ -32,6 +32,8 @@ export default defineConfig({
     "switch.native":    "src/switch/index.native.tsx",
     "segmented":        "src/segmented/index.tsx",
     "segmented.native": "src/segmented/index.native.tsx",
+    "collapsible":        "src/collapsible/index.tsx",
+    "collapsible.native": "src/collapsible/index.native.tsx",
     "divider":          "src/divider/index.tsx",
     "divider.native":   "src/divider/index.native.tsx",
     "spinner":          "src/spinner/index.tsx",

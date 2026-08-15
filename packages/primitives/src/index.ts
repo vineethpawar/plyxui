@@ -39,6 +39,9 @@ export type { SwitchProps, SwitchSize } from "./switch";
 export { Segmented } from "./segmented";
 export type { SegmentedProps, SegmentedOption, SegmentedSize } from "./segmented";
 
+export { Collapsible } from "./collapsible";
+export type { CollapsibleProps } from "./collapsible";
+
 export { Divider } from "./divider";
 export type { DividerProps } from "./divider";
 

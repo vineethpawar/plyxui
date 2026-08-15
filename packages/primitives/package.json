@@ -169,6 +169,18 @@
       "require": "./dist/segmented.cjs",
       "default": "./dist/segmented.js"
     },
+    "./collapsible": {
+      "react-native": {
+        "types": "./dist/collapsible.native.d.ts",
+        "import": "./dist/collapsible.native.js",
+        "require": "./dist/collapsible.native.cjs",
+        "default": "./dist/collapsible.native.js"
+      },
+      "types": "./dist/collapsible.d.ts",
+      "import": "./dist/collapsible.js",
+      "require": "./dist/collapsible.cjs",
+      "default": "./dist/collapsible.js"
+    },
     "./divider": {
       "react-native": {
         "types": "./dist/divider.native.d.ts",
