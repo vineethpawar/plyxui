@@ -1,0 +1,62 @@
+---
+title: Motion
+description: Duration and easing tokens, semantic motion pairs, and the useReducedMotion hook.
+order: 10
+---
+
+Motion in plyxui comes from one shared vocabulary in `@plyxui/core/tokens` instead of per-component magic numbers.
+
+## Durations
+
+```ts
+import { duration } from "@plyxui/core/tokens";
+```
+
+| Token | ms | Use for |
+|---|---|---|
+| `instant` | 50 | Press feedback |
+| `fast` | 120 | Hovers, small state flips |
+| `base` | 180 | Most transitions |
+| `gentle` | 240 | Overlay entrances |
+| `slow` | 320 | Large surfaces |
+| `celebrate` | 500 | Score count-ups, celebratory feedback |
+
+## Easing
+
+```ts
+import { easing } from "@plyxui/core/tokens";
+```
+
+| Token | Curve | Notes |
+|---|---|---|
+| `out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Fast start, long settle. Default for hovers and entrances. |
+| `standard` | `cubic-bezier(0.23, 1, 0.32, 1)` | easeOutQuint — the curve Card, Progress, Switch, Segmented, and Collapsible already use. |
+| `inOut` | `cubic-bezier(0.65, 0, 0.35, 1)` | Symmetric. Exits and cross-screen travel. |
+| `linear` | `linear` | Progress-style continuous motion. |
+
+## Semantic pairs + `transition()`
+
+`motion` bundles a duration and an easing per intent, and `transition()` turns a pair into a CSS transition value:
+
+```ts
+import { motion, transition } from "@plyxui/core/tokens";
+
+transition("opacity", motion.overlayEnter);
+// "opacity 240ms cubic-bezier(0.16, 1, 0.3, 1)"
+```
+
+Intents: `controlHover`, `controlActive`, `overlayEnter`, `overlayExit`, `expand`, `celebrate`.
+
+## useReducedMotion
+
+From `@plyxui/hooks`. True when the user has asked the OS to reduce motion — gate non-essential animation on it, keep the state change.
+
+```tsx
+import { useReducedMotion } from "@plyxui/hooks";
+import { duration } from "@plyxui/core/tokens";
+
+const reduced = useReducedMotion();
+const dur = reduced ? 0 : duration.base;
+```
+
+Web tracks `(prefers-reduced-motion: reduce)` and is SSR-safe (false until the query resolves). Native reads `AccessibilityInfo.isReduceMotionEnabled` and follows changes.

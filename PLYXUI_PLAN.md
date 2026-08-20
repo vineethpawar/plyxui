@@ -45,6 +45,7 @@ three reasons to upvote:
 - [ ] add a postbuild script that copies the README to dist/
 - [x] ThemeProvider listens to `prefers-color-scheme` when no localStorage entry
 - [x] document module augmentation in a single visible README block (not buried in core/tokens/colors.ts header)
+- [x] motion foundation M0/M1 -- duration/easing/semantic tokens in core, useReducedMotion (web + native) in hooks. next: migrate the primitives' hardcoded transitions onto the tokens
 - [ ] add a node 20 + 22 CI matrix
 - [ ] `npm run check-types` should pass clean -- currently flaky on the polymorphic ref forward cast, look at it
 

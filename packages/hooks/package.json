@@ -1,13 +1,19 @@
 {
   "name": "@plyxui/hooks",
   "version": "0.3.0",
-  "description": "Cross-platform React hooks. useDisclosure, useClickOutside, useMediaQuery, useToast. No DOM or RN assumptions in the public API.",
+  "description": "Cross-platform React hooks. useDisclosure, useClickOutside, useMediaQuery, useReducedMotion, useToast. No DOM or RN assumptions in the public API.",
   "license": "MIT",
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "react-native": "src/index.ts",
   "exports": {
     ".": {
+      "react-native": {
+        "types": "./dist/index.native.d.ts",
+        "import": "./dist/index.native.js",
+        "require": "./dist/index.native.cjs",
+        "default": "./dist/index.native.js"
+      },
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",

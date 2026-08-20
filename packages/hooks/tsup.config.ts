@@ -1,7 +1,10 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: { index: "src/index.ts" },
+  entry: {
+    index: "src/index.ts",
+    "index.native": "src/index.native.ts",
+  },
   format: ["esm", "cjs"],
   outExtension({ format }) {
     return { js: format === "esm" ? ".js" : ".cjs" };
