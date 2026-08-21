@@ -1,0 +1,60 @@
+---
+title: Skeleton
+description: Shimmer placeholder that holds layout while content loads. Text lines, rects, and circles.
+order: 80
+---
+
+A loading state that shows the shape of what's coming reads faster than
+a spinner that shows nothing. `Skeleton` sweeps a gradient over
+`containerFill`; with reduced motion it renders a static fill — the
+placeholder still holds space, it just doesn't move.
+
+## Try it live
+
+<LivePreview code={`
+import { Skeleton, Box, Stack, Flex } from "@plyxui/primitives";
+
+export default function App() {
+  return (
+    <Box padding="lg" style={{ minHeight: "100vh" }}>
+      <Stack direction="vertical" gap={4} style={{ maxWidth: 360 }}>
+        <Flex gap={3} align="center">
+          <Skeleton variant="circle" width={40} />
+          <Box style={{ flex: 1 }}>
+            <Skeleton variant="text" lines={2} />
+          </Box>
+        </Flex>
+        <Skeleton variant="rect" height={120} />
+        <Skeleton variant="text" lines={3} />
+      </Stack>
+    </Box>
+  );
+}
+`} height={320} />
+
+## API
+
+```tsx
+import { Skeleton } from "@plyxui/primitives";
+
+<Skeleton variant="text" lines={3} />
+
+<Skeleton variant="circle" width={40} />
+
+<Skeleton variant="rect" width="100%" height={120} />
+```
+
+## Props
+
+| Prop | Type | Default |
+|---|---|---|
+| `variant` | `"text" \| "rect" \| "circle"` | `"rect"` |
+| `width` | `number \| string` | `100%` (`40` for circle) |
+| `height` | `number \| string` | per variant |
+| `lines` | `number` (text only; last line renders shorter) | `1` |
+
+## Native
+
+Same prop shape. The gradient sweep would need a gradient dependency,
+so native pulses opacity on a `containerFill` block instead — zero new
+deps, same effect.

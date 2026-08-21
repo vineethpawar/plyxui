@@ -204,6 +204,42 @@
       "import": "./dist/spinner.js",
       "require": "./dist/spinner.cjs",
       "default": "./dist/spinner.js"
+    },
+    "./presence": {
+      "react-native": {
+        "types": "./dist/presence.native.d.ts",
+        "import": "./dist/presence.native.js",
+        "require": "./dist/presence.native.cjs",
+        "default": "./dist/presence.native.js"
+      },
+      "types": "./dist/presence.d.ts",
+      "import": "./dist/presence.js",
+      "require": "./dist/presence.cjs",
+      "default": "./dist/presence.js"
+    },
+    "./skeleton": {
+      "react-native": {
+        "types": "./dist/skeleton.native.d.ts",
+        "import": "./dist/skeleton.native.js",
+        "require": "./dist/skeleton.native.cjs",
+        "default": "./dist/skeleton.native.js"
+      },
+      "types": "./dist/skeleton.d.ts",
+      "import": "./dist/skeleton.js",
+      "require": "./dist/skeleton.cjs",
+      "default": "./dist/skeleton.js"
+    },
+    "./animatednumber": {
+      "react-native": {
+        "types": "./dist/animatednumber.native.d.ts",
+        "import": "./dist/animatednumber.native.js",
+        "require": "./dist/animatednumber.native.cjs",
+        "default": "./dist/animatednumber.native.js"
+      },
+      "types": "./dist/animatednumber.d.ts",
+      "import": "./dist/animatednumber.js",
+      "require": "./dist/animatednumber.cjs",
+      "default": "./dist/animatednumber.js"
     }
   },
   "files": [
@@ -222,6 +258,7 @@
   "dependencies": {
     "@plyxui/core": "*",
     "@plyxui/styles": "*",
+    "@plyxui/hooks": "*",
     "class-variance-authority": "^0.7.1"
   },
   "peerDependencies": {

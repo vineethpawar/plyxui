@@ -1,0 +1,69 @@
+---
+title: Presence
+description: Mount/unmount transition primitive. Children stay in the tree while they animate out, then actually unmount.
+order: 75
+---
+
+Every overlay used to `if (!open) return null` — nothing ever animated
+its exit. `Presence` is the missing half: keep the children mounted
+while the exit animation runs, then unmount and fire `onExitComplete`.
+Dialog, Popover, and the Toaster stack are all built on it.
+
+Enter defaults to `motion.overlayEnter`, exit to `motion.overlayExit`.
+Reduced motion collapses both to a fast opacity-only fade.
+
+## Try it live
+
+<LivePreview code={`
+import { useState } from "react";
+import { Presence, Box, Button, Card, Stack, Text } from "@plyxui/primitives";
+
+export default function App() {
+  const [open, setOpen] = useState(true);
+  return (
+    <Box padding="lg" style={{ minHeight: "100vh" }}>
+      <Stack direction="vertical" gap={4} style={{ maxWidth: 360 }}>
+        <Button onClick={() => setOpen(!open)}>{open ? "Hide" : "Show"}</Button>
+        <Presence present={open} from={{ opacity: 0, translateY: 8 }}>
+          <Card padding="md">
+            <Text>I animate in AND out.</Text>
+          </Card>
+        </Presence>
+      </Stack>
+    </Box>
+  );
+}
+`} height={280} />
+
+## API
+
+```tsx
+import { Presence } from "@plyxui/primitives";
+
+<Presence present={open}>{panel}</Presence>
+
+<Presence present={open} from={{ opacity: 0, scale: 0.98 }}>{panel}</Presence>
+
+<Presence present={show} duration={320} onExitComplete={() => queue.shift()}>
+  {toast}
+</Presence>
+```
+
+The wrapper div carries `data-state="open" | "closed"` so CSS can hook
+either state.
+
+## Props
+
+| Prop | Type | Default |
+|---|---|---|
+| `present` | `boolean` | — |
+| `from` | `{ opacity?, translateX?, translateY?, scale? }` | `{ opacity: 0, translateY: 8 }` |
+| `duration` | `number` (ms, overrides both directions) | motion tokens |
+| `easing` | `string` (CSS easing, overrides both directions) | motion tokens |
+| `onExitComplete` | `() => void` | — |
+
+## Native
+
+Same contract, driven by RN `Animated.timing`. The `easing` prop is
+ignored there (CSS strings don't translate); native uses
+`Easing.out(Easing.cubic)`, the closest match to the motion tokens.

@@ -1,0 +1,59 @@
+---
+title: AnimatedNumber
+description: Counts a number up or down to its new value. For score reveals and any moment where the change is the point.
+order: 85
+---
+
+A number that travels reads as an event; one that snaps reads as a
+correction. `AnimatedNumber` interpolates to each new `value` with an
+ease-out curve over `motion.celebrate` (500ms) and renders tabular
+digits so the layout doesn't wobble mid-count. Reduced motion snaps
+instantly.
+
+## Try it live
+
+<LivePreview code={`
+import { useState } from "react";
+import { AnimatedNumber, Box, Button, Stack, Text } from "@plyxui/primitives";
+
+export default function App() {
+  const [score, setScore] = useState(1200);
+  return (
+    <Box padding="lg" style={{ minHeight: "100vh" }}>
+      <Stack direction="vertical" gap={4} align="center">
+        <Text size="xl" weight="bold">
+          <AnimatedNumber value={score} />
+        </Text>
+        <Button onClick={() => setScore(score + Math.round(Math.random() * 500))}>
+          Score!
+        </Button>
+      </Stack>
+    </Box>
+  );
+}
+`} height={260} />
+
+## API
+
+```tsx
+import { AnimatedNumber } from "@plyxui/primitives";
+
+<AnimatedNumber value={score} />
+
+<AnimatedNumber value={total} format={(n) => "$" + n.toFixed(2)} />
+
+<AnimatedNumber value={xp} duration={800} />
+```
+
+## Props
+
+| Prop | Type | Default |
+|---|---|---|
+| `value` | `number` | — |
+| `duration` | `number` (ms) | `motion.celebrate` (500) |
+| `format` | `(n: number) => string` | rounds to an integer string |
+
+## Native
+
+Identical logic — rAF works fine in React Native. Renders an RN `Text`
+with `fontVariant: ["tabular-nums"]`.

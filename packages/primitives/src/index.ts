@@ -47,3 +47,12 @@ export type { DividerProps } from "./divider";
 
 export { Spinner } from "./spinner";
 export type { SpinnerProps, SpinnerSize } from "./spinner";
+
+export { Presence } from "./presence";
+export type { PresenceProps, PresenceFrom } from "./presence";
+
+export { Skeleton } from "./skeleton";
+export type { SkeletonProps, SkeletonVariant } from "./skeleton";
+
+export { AnimatedNumber } from "./animatednumber";
+export type { AnimatedNumberProps } from "./animatednumber";

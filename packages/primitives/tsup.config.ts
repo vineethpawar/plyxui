@@ -38,6 +38,12 @@ export default defineConfig({
     "divider.native":   "src/divider/index.native.tsx",
     "spinner":          "src/spinner/index.tsx",
     "spinner.native":   "src/spinner/index.native.tsx",
+    "presence":         "src/presence/index.tsx",
+    "presence.native":  "src/presence/index.native.tsx",
+    "skeleton":         "src/skeleton/index.tsx",
+    "skeleton.native":  "src/skeleton/index.native.tsx",
+    "animatednumber":        "src/animatednumber/index.tsx",
+    "animatednumber.native": "src/animatednumber/index.native.tsx",
   },
   format: ["esm", "cjs"],
   outExtension({ format }) {
@@ -48,5 +54,5 @@ export default defineConfig({
   clean: true,
   treeshake: true,
   target: "es2020",
-  external: ["react", "react-dom", "react-native", "@plyxui/core", "@plyxui/styles", "class-variance-authority"],
+  external: ["react", "react-dom", "react-native", "@plyxui/core", "@plyxui/styles", "@plyxui/hooks", "class-variance-authority"],
 });
