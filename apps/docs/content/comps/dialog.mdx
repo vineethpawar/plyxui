@@ -1,0 +1,77 @@
+---
+title: Dialog
+description: The composed modal. One theme scrim, Presence-animated enter/exit, focus trap, tone-aware actions.
+order: 50
+---
+
+`Dialog` is the modal for decision points: it blocks the page behind the
+theme's `scrim` color, animates in on the overlay motion tokens (scale
+0.98 + fade), traps focus inside the panel, locks body scroll, and hands
+focus back where it came from on close. Escape and backdrop clicks
+dismiss it.
+
+`Modal` (the `<dialog>` element wrapper) stays for simple cases; Dialog
+is the composed, animated one.
+
+## Try it live
+
+<LivePreview code={`
+import { useState } from "react";
+import { Dialog } from "@plyxui/comps";
+import { Box, Button } from "@plyxui/primitives";
+
+export default function App() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Box padding="lg" style={{ minHeight: "100vh" }}>
+      <Button onClick={() => setOpen(true)}>Delete project</Button>
+      <Dialog open={open} onClose={() => setOpen(false)} title="Delete project?" tone="danger" size="sm">
+        <Dialog.Description>
+          This removes the project and all of its data. It can't be undone.
+        </Dialog.Description>
+        <Dialog.Actions>
+          <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={() => setOpen(false)}>Delete</Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Box>
+  );
+}
+`} height={320} />
+
+## API
+
+```tsx
+import { Dialog } from "@plyxui/comps";
+
+<Dialog open={open} onClose={close} title="Rename file">
+  <Input value={name} onChange={setName} />
+  <Dialog.Actions>
+    <Button variant="ghost" onClick={close}>Cancel</Button>
+    <Button onClick={save}>Save</Button>
+  </Dialog.Actions>
+</Dialog>
+```
+
+`Dialog.Title` and `Dialog.Description` label the dialog for assistive
+tech (`aria-labelledby` / `aria-describedby`). In `Dialog.Actions`, the
+**last child is the primary action** — `tone="danger"` injects
+`variant="danger"` into it so destructive confirms read as destructive
+without per-callsite styling.
+
+## Props
+
+| Prop | Type | Default |
+|---|---|---|
+| `open` | `boolean` | — |
+| `onClose` | `() => void` | — |
+| `title` | `ReactNode` (renders a header with a close button) | — |
+| `size` | `"sm" \| "md" \| "lg" \| "full" \| number` | `"md"` (520) |
+| `tone` | `"default" \| "danger"` | `"default"` |
+| `dismissOnBackdrop` | `boolean` | `true` |
+
+## Native
+
+Same contract on RN `Modal`: scrim + Presence scale/fade, exit animates
+before the host modal unmounts. Focus trapping and scroll locking are
+web concerns — RN Modal already owns the screen.

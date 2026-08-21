@@ -1,0 +1,72 @@
+---
+title: Popover
+description: One floating-panel primitive for menus, pickers, and filter panels. No portal, no positioning engine.
+order: 60
+---
+
+`Popover` replaces the ad-hoc absolutely-positioned panels that
+otherwise multiply through an app. It deliberately skips portals and
+positioning engines: the panel hangs off a corner of a wrapping
+`position: relative` container that also holds the trigger. That covers
+menus, pickers, and filter panels with zero dependencies.
+
+Outside-mousedown and Escape both close it; Escape also returns focus to
+the anchor. Enter/exit are a fade + 4px slide through Presence.
+
+## Try it live
+
+<LivePreview code={`
+import { useRef, useState } from "react";
+import { Popover } from "@plyxui/comps";
+import { Box, Button, Stack, Text } from "@plyxui/primitives";
+
+export default function App() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+  return (
+    <Box padding="lg" style={{ minHeight: "100vh" }}>
+      <div style={{ position: "relative", display: "inline-block" }}>
+        <Button ref={anchorRef} onClick={() => setOpen(!open)}>Filters</Button>
+        <Popover open={open} onClose={() => setOpen(false)} anchor={anchorRef}>
+          <Stack direction="vertical" gap={2}>
+            <Text size="sm" weight="semibold">Show only</Text>
+            <Text size="sm">Active projects</Text>
+            <Text size="sm">Archived</Text>
+          </Stack>
+        </Popover>
+      </div>
+    </Box>
+  );
+}
+`} height={320} />
+
+## API
+
+```tsx
+import { Popover } from "@plyxui/comps";
+
+<div style={{ position: "relative" }}>
+  <Button ref={anchorRef} onClick={() => setOpen(true)}>Menu</Button>
+  <Popover open={open} onClose={close} anchor={anchorRef} placement="bottom-end">
+    …
+  </Popover>
+</div>
+```
+
+## Props
+
+| Prop | Type | Default |
+|---|---|---|
+| `open` | `boolean` | — |
+| `onClose` | `() => void` | — |
+| `anchor` | `RefObject<HTMLElement>` (excluded from outside-click, focused on Escape) | — |
+| `placement` | `"bottom-start" \| "bottom-end" \| "top-start" \| "top-end"` | `"bottom-start"` |
+
+## Native
+
+Popover diverges on native the same way Tooltip does: no hover, no
+document, no reliable relative-ancestor positioning. The native version
+renders the panel **inline, in flow** where the Popover sits (a
+disclosure, not a floating layer); `anchor` and `placement` are accepted
+for API parity and ignored. For a true floating surface on native, use
+Dialog or Drawer.

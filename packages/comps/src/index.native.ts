@@ -15,3 +15,9 @@ export type { ToasterProps, ToasterPosition } from "./Toast/index.native";
 
 export { Drawer } from "./Drawer/index.native";
 export type { DrawerProps, DrawerSide } from "./Drawer/index.native";
+
+export { Dialog } from "./Dialog/index.native";
+export type { DialogProps, DialogSize, DialogTone, DialogSectionProps } from "./Dialog/index.native";
+
+export { Popover } from "./Popover/index.native";
+export type { PopoverProps, PopoverPlacement } from "./Popover/index.native";

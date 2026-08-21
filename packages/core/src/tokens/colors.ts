@@ -37,6 +37,8 @@ export interface OmniColorTokens {
   statusSuccess: string;
   statusError: string;
   statusWarning: string;
+  /** Overlay backdrop behind dialogs, drawers, sheets. One value, used everywhere. */
+  scrim: string;
 }
 
 /**
@@ -65,6 +67,7 @@ export const colorTokens: Record<keyof OmniColorTokens, ColorPair> =
     statusSuccess:  { light: "#22A861", dark: "#299764" },
     statusError:    { light: "#DC3545", dark: "#E05146" },
     statusWarning:  { light: "#F0A500", dark: "#F2B143" },
+    scrim:          { light: "rgba(1, 1, 1, 0.40)", dark: "rgba(0, 0, 0, 0.60)" },
   });
 
 /**

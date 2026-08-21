@@ -16,6 +16,10 @@ export default defineConfig({
     "Toast.native":     "src/Toast/index.native.tsx",
     "Drawer":           "src/Drawer/index.tsx",
     "Drawer.native":    "src/Drawer/index.native.tsx",
+    "Dialog":           "src/Dialog/index.tsx",
+    "Dialog.native":    "src/Dialog/index.native.tsx",
+    "Popover":          "src/Popover/index.tsx",
+    "Popover.native":   "src/Popover/index.native.tsx",
   },
   format: ["esm", "cjs"],
   outExtension({ format }) {

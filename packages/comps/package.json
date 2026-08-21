@@ -90,6 +90,30 @@
       "import": "./dist/Drawer.js",
       "require": "./dist/Drawer.cjs",
       "default": "./dist/Drawer.js"
+    },
+    "./Dialog": {
+      "react-native": {
+        "types": "./dist/Dialog.native.d.ts",
+        "import": "./dist/Dialog.native.js",
+        "require": "./dist/Dialog.native.cjs",
+        "default": "./dist/Dialog.native.js"
+      },
+      "types": "./dist/Dialog.d.ts",
+      "import": "./dist/Dialog.js",
+      "require": "./dist/Dialog.cjs",
+      "default": "./dist/Dialog.js"
+    },
+    "./Popover": {
+      "react-native": {
+        "types": "./dist/Popover.native.d.ts",
+        "import": "./dist/Popover.native.js",
+        "require": "./dist/Popover.native.cjs",
+        "default": "./dist/Popover.native.js"
+      },
+      "types": "./dist/Popover.d.ts",
+      "import": "./dist/Popover.js",
+      "require": "./dist/Popover.cjs",
+      "default": "./dist/Popover.js"
     }
   },
   "files": [
