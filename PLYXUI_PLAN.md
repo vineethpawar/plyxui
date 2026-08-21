@@ -46,6 +46,7 @@ three reasons to upvote:
 - [x] ThemeProvider listens to `prefers-color-scheme` when no localStorage entry
 - [x] document module augmentation in a single visible README block (not buried in core/tokens/colors.ts header)
 - [x] motion foundation M0/M1 -- duration/easing/semantic tokens in core, useReducedMotion (web + native) in hooks. next: migrate the primitives' hardcoded transitions onto the tokens
+- [x] E0 systems -- Presence (mount/unmount transitions), Skeleton, AnimatedNumber, Dialog (scrim token + focus trap), Popover, sonner-grade Toaster (stack + hover-pause + actions), two-part focus rings on Input/Textarea/Select. AutoAnimateList deferred to a later phase
 - [ ] add a node 20 + 22 CI matrix
 - [ ] `npm run check-types` should pass clean -- currently flaky on the polymorphic ref forward cast, look at it
 

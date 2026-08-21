@@ -1,10 +1,15 @@
 /**
- * Toaster (native). Renders the queue from `useToast()` in a corner stack.
- * Same contract as web; uses RN Animated for the enter/exit transition.
+ * Toaster (native). Renders the queue from `useToast()` as a single
+ * column — same API as web, minus the stacking physics: hover doesn't
+ * exist on touch, so there's no collapsed pile or pause-on-hover here.
+ * Enter/exit animate through the Presence primitive; `action` renders
+ * as a button and those toasts stick until dismissed (queue behavior,
+ * shared with web).
  */
-import { useEffect, useRef } from "react";
-import { Animated, Pressable, Text as RNText, View, type ViewStyle } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { Pressable, Text as RNText, View, type ViewStyle } from "react-native";
 import { useToast, type ToastItem, type ToastVariant } from "@plyxui/hooks";
+import { Presence } from "@plyxui/primitives";
 import { useTheme } from "@plyxui/styles";
 import { radius, spacing } from "@plyxui/core";
 
@@ -19,7 +24,26 @@ export interface ToasterProps {
 
 export function Toaster({ position = "bottom", offset = 24, max = 5, accent }: ToasterProps) {
   const { toasts } = useToast();
-  const visible = toasts.slice(-max);
+  const live = toasts.slice(-max);
+
+  // Local render list so dismissed toasts stay mounted through their exit.
+  const [rendered, setRendered] = useState<ToastItem[]>(live);
+  useEffect(() => {
+    setRendered((prev) => {
+      const prevIds = new Set(prev.map((t) => t.id));
+      const liveById = new Map(live.map((t) => [t.id, t]));
+      const kept = prev.map((t) => liveById.get(t.id) ?? t);
+      const added = live.filter((t) => !prevIds.has(t.id));
+      return [...kept, ...added];
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [toasts, max]);
+
+  const removeRendered = useCallback((id: string) => {
+    setRendered((prev) => prev.filter((t) => t.id !== id));
+  }, []);
+
+  const liveIds = new Set(live.map((t) => t.id));
 
   const containerStyle: ViewStyle = {
     position: "absolute",
@@ -32,8 +56,15 @@ export function Toaster({ position = "bottom", offset = 24, max = 5, accent }: T
 
   return (
     <View pointerEvents="box-none" style={containerStyle}>
-      {visible.map((t: ToastItem) => (
-        <ToastCard key={t.id} item={t} accent={accent} />
+      {rendered.map((t) => (
+        <Presence
+          key={t.id}
+          present={liveIds.has(t.id)}
+          from={{ opacity: 0, translateY: position === "bottom" ? 16 : -16 }}
+          onExitComplete={() => removeRendered(t.id)}
+        >
+          <ToastCard item={t} accent={accent} />
+        </Presence>
       ))}
     </View>
   );
@@ -48,15 +79,6 @@ function ToastCard({
 }) {
   const { colors } = useTheme();
   const { dismiss } = useToast();
-  const opacity = useRef(new Animated.Value(0)).current;
-  const translate = useRef(new Animated.Value(8)).current;
-
-  useEffect(() => {
-    Animated.parallel([
-      Animated.timing(opacity, { toValue: 1, duration: 180, useNativeDriver: true }),
-      Animated.timing(translate, { toValue: 0, duration: 180, useNativeDriver: true }),
-    ]).start();
-  }, [opacity, translate]);
 
   const variant = item.variant ?? "default";
   const fallback: Record<ToastVariant, string> = {
@@ -68,11 +90,9 @@ function ToastCard({
   const accentColor = accent?.[variant] ?? fallback[variant];
 
   return (
-    <Animated.View
+    <View
       accessibilityRole="alert"
       style={{
-        opacity,
-        transform: [{ translateY: translate }],
         backgroundColor: colors.surfaceFill,
         borderLeftWidth: 3,
         borderLeftColor: accentColor,
@@ -87,7 +107,7 @@ function ToastCard({
       }}
     >
       {item.title ? (
-        <RNText style={{ color: colors.text, fontSize: 14, fontWeight: "600" }}>
+        <RNText style={{ color: colors.text, fontSize: 14, fontWeight: "600", paddingRight: spacing[5] }}>
           {item.title}
         </RNText>
       ) : null}
@@ -95,6 +115,27 @@ function ToastCard({
         <RNText style={{ color: colors.textMuted, fontSize: 13, marginTop: 2 }}>
           {item.description}
         </RNText>
+      ) : null}
+      {item.action ? (
+        <Pressable
+          onPress={() => {
+            item.action?.onClick();
+            dismiss(item.id);
+          }}
+          style={{
+            alignSelf: "flex-start",
+            marginTop: spacing[2],
+            borderWidth: 1,
+            borderColor: colors.stroke,
+            borderRadius: radius.sm,
+            paddingHorizontal: spacing[2],
+            paddingVertical: spacing[1],
+          }}
+        >
+          <RNText style={{ color: accentColor, fontSize: 12, fontWeight: "600" }}>
+            {item.action.label}
+          </RNText>
+        </Pressable>
       ) : null}
       <Pressable
         onPress={() => dismiss(item.id)}
@@ -104,6 +145,6 @@ function ToastCard({
       >
         <RNText style={{ color: colors.textMuted, fontSize: 16, lineHeight: 16 }}>x</RNText>
       </Pressable>
-    </Animated.View>
+    </View>
   );
 }

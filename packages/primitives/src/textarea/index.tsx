@@ -6,6 +6,10 @@
  *
  * Controlled and uncontrolled both work. autoGrow measures scrollHeight
  * on each change and pins the element height between minRows and maxRows.
+ *
+ * Focus draws the same two-part ring as Input (page-fill gap +
+ * primaryOrange). Inline styles can't express :focus-visible, so the
+ * ring shows on every focus, not just keyboard focus.
  */
 import {
   forwardRef,
@@ -16,7 +20,7 @@ import {
   type CSSProperties,
 } from "react";
 import { useTheme } from "@plyxui/styles";
-import { radius, spacing } from "@plyxui/core";
+import { motion, radius, spacing, transition } from "@plyxui/core";
 
 export type TextareaSize = "sm" | "md" | "lg";
 
@@ -73,6 +77,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
 ) {
   const { colors } = useTheme();
   const [internal, setInternal] = useState<string>(defaultValue ?? "");
+  const [focused, setFocused] = useState(false);
   const isControlled = value !== undefined;
   const current = isControlled ? value : internal;
   const dims = sizeMap[size];
@@ -103,7 +108,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
     minHeight: minH,
     padding: `${dims.padY}px ${dims.padX}px`,
     background: colors.surfaceFill,
-    border: `1px solid ${invalid ? colors.statusError : colors.stroke}`,
+    border: `1px solid ${invalid ? colors.statusError : focused ? colors.primaryOrange : colors.stroke}`,
     borderRadius: radius.md,
     color: colors.text,
     fontSize: dims.fontSize,
@@ -112,7 +117,13 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
     outline: "none",
     resize: autoGrow ? "none" : "vertical",
     opacity: disabled ? 0.55 : 1,
-    transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+    boxShadow: focused
+      ? `0 0 0 2px ${colors.primaryFill}, 0 0 0 4px ${invalid ? colors.statusError : colors.primaryOrange}`
+      : "none",
+    transition: [
+      transition("border-color", motion.controlHover),
+      transition("box-shadow", motion.controlHover),
+    ].join(", "),
     ...style,
   };
 
@@ -135,12 +146,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
       aria-invalid={invalid || undefined}
       aria-label={aria["aria-label"]}
       style={textareaStyle}
-      onFocus={(e) => {
-        e.currentTarget.style.borderColor = invalid ? colors.statusError : colors.primaryOrange;
-      }}
-      onBlur={(e) => {
-        e.currentTarget.style.borderColor = invalid ? colors.statusError : colors.stroke;
-      }}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
     />
   );
 });

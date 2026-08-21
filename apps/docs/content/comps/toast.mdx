@@ -5,7 +5,11 @@ order: 30
 ---
 
 The toast queue lives in [`@plyxui/hooks`](/hooks/) — `ToastProvider` +
-`useToast()`. `@plyxui/comps` ships `Toaster`, the renderer.
+`useToast()`. `@plyxui/comps` ships `Toaster`, the renderer: a stacked
+corner pile, newest on top, up to three older toasts peeking behind it.
+Hovering expands the pile into a column and pauses every auto-dismiss
+timer (a hidden tab pauses them too); enter/exit run through the
+Presence primitive on the motion tokens.
 
 That split is on purpose: the same queue can drive a custom snackbar, a
 banner stack, or this `Toaster`. Apps that need a bespoke visual skip the
@@ -77,6 +81,19 @@ function SaveButton() {
 }
 ```
 
+## Actions and undo
+
+A toast can carry an `action` — it renders as a button, and the toast
+sticks around until dismissed (an Undo the user can't reach isn't an
+Undo). Explicit `duration` still wins if you pass one.
+
+```tsx
+toast({
+  title: "Message archived",
+  action: { label: "Undo", onClick: restore },
+});
+```
+
 ## Variants
 
 `default`, `success`, `warning`, `error`. The left rail accent picks the
@@ -88,10 +105,18 @@ matching theme token. Override per variant with the `accent` prop.
 |---|---|---|
 | `position` | `"top-left" \| "top-right" \| "top-center" \| "bottom-left" \| "bottom-right" \| "bottom-center"` | `"bottom-right"` |
 | `offset` | `number` (px from the corner) | `16` |
-| `max` | `number` (cap of visible toasts; older ones drop) | `5` |
+| `max` | `number` (cap of rendered toasts; older ones animate out) | `5` |
 | `accent` | `Partial<Record<ToastVariant, string>>` | — |
+| `width` | `number` (stack width in px) | `356` |
+
+The queue in `@plyxui/hooks` also grew pausable timers —
+`pause(id)` / `resume(id)` / `pauseAll()` / `resumeAll()` — which the
+Toaster drives on hover and tab visibility. Existing
+`toast({ title, description, duration })` calls work unchanged.
 
 ## Native
 
 The native `Toaster` lives at the same import path and supports `top` or
-`bottom` positions. It uses RN `Animated` for the enter transition.
+`bottom` positions. Same API, minus the stacking physics — hover doesn't
+exist on touch, so it renders a single column with Presence enter/exit
+and the same `action` button.

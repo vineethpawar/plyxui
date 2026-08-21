@@ -5,9 +5,9 @@
  * is the form-grade equivalent for cases where native a11y + mobile UX
  * matters more than custom styling.
  */
-import { forwardRef, type ChangeEvent, type CSSProperties } from "react";
+import { forwardRef, useState, type ChangeEvent, type CSSProperties } from "react";
 import { useTheme } from "@plyxui/styles";
-import { radius, spacing } from "@plyxui/core";
+import { motion, radius, spacing, transition } from "@plyxui/core";
 
 export interface SelectOption {
   label: string;
@@ -40,6 +40,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   ref,
 ) {
   const { colors } = useTheme();
+  const [focused, setFocused] = useState(false);
   const dim = sizeMap[size];
   return (
     <select
@@ -51,12 +52,24 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       onChange={(e) => onChange?.(e.target.value, e)}
       disabled={disabled}
       aria-invalid={invalid || undefined}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       style={{
         height: dim.h,
         padding: `0 ${dim.pad}px`,
         background: colors.surfaceFill,
-        border: `1px solid ${invalid ? colors.statusError : colors.stroke}`,
+        border: `1px solid ${invalid ? colors.statusError : focused ? colors.primaryOrange : colors.stroke}`,
         borderRadius: radius.md,
+        outline: "none",
+        // Same two-part focus ring as Input/Textarea. Inline styles can't
+        // express :focus-visible, so it shows on every focus.
+        boxShadow: focused
+          ? `0 0 0 2px ${colors.primaryFill}, 0 0 0 4px ${invalid ? colors.statusError : colors.primaryOrange}`
+          : "none",
+        transition: [
+          transition("border-color", motion.controlHover),
+          transition("box-shadow", motion.controlHover),
+        ].join(", "),
         color: colors.text,
         fontFamily: "inherit",
         fontSize: dim.fs,

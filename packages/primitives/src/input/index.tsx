@@ -5,10 +5,15 @@
  * Controlled and uncontrolled both work. We deliberately don't bundle a
  * Field wrapper here -- that lives in layouts because the label + helper
  * positioning is design-system-specific.
+ *
+ * Focus draws a two-part ring (page-fill gap + primaryOrange) so the
+ * focused field pops on any surface. Inline styles can't express
+ * :focus-visible, so the ring shows on every focus, not just keyboard
+ * focus -- revisit if/when the library grows a stylesheet layer.
  */
 import { forwardRef, useState, type ChangeEvent, type CSSProperties } from "react";
 import { useTheme } from "@plyxui/styles";
-import { radius, spacing } from "@plyxui/core";
+import { motion, radius, spacing, transition } from "@plyxui/core";
 
 export type InputSize = "sm" | "md" | "lg";
 
@@ -64,6 +69,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 ) {
   const { colors } = useTheme();
   const [internal, setInternal] = useState<string>(defaultValue ?? "");
+  const [focused, setFocused] = useState(false);
   const isControlled = value !== undefined;
   const current = isControlled ? value : internal;
   const dims = sizeMap[size];
@@ -76,11 +82,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     paddingLeft: leading ? spacing[2] : dims.padX,
     paddingRight: trailing ? spacing[2] : dims.padX,
     background: colors.surfaceFill,
-    border: `1px solid ${invalid ? colors.statusError : colors.stroke}`,
+    border: `1px solid ${invalid ? colors.statusError : focused ? colors.primaryOrange : colors.stroke}`,
     borderRadius: radius.md,
     color: colors.text,
     opacity: disabled ? 0.55 : 1,
-    transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+    boxShadow: focused
+      ? `0 0 0 2px ${colors.primaryFill}, 0 0 0 4px ${invalid ? colors.statusError : colors.primaryOrange}`
+      : "none",
+    transition: [
+      transition("border-color", motion.controlHover),
+      transition("box-shadow", motion.controlHover),
+    ].join(", "),
     ...style,
   };
 
@@ -113,6 +125,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         placeholder={placeholder}
         disabled={disabled}
         autoFocus={autoFocus}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         inputMode={inputMode}
         aria-invalid={invalid || undefined}
         aria-label={aria["aria-label"]}

@@ -8,4 +8,4 @@ export { useMediaQuery } from "./useMediaQuery";
 export { useReducedMotion } from "./useReducedMotion";
 
 export { useToast, ToastProvider } from "./useToast";
-export type { ToastItem, ToastVariant, ToastContextValue } from "./useToast";
+export type { ToastItem, ToastAction, ToastVariant, ToastContextValue } from "./useToast";
