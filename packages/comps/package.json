@@ -1,6 +1,6 @@
 {
   "name": "@plyxui/comps",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Composite components built on the primitives: Modal, Dropdown, Tooltip, Tabs, Toast, Drawer.",
   "license": "MIT",
   "main": "./dist/index.cjs",

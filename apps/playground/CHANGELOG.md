@@ -1,5 +1,17 @@
 # plyxui-playground
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [b77a91a]
+- Updated dependencies [def98ef]
+  - @plyxui/core@0.4.0
+  - @plyxui/hooks@0.4.0
+  - @plyxui/primitives@0.6.0
+  - @plyxui/comps@0.4.0
+  - @plyxui/forms@0.4.0
+
 ## 0.0.3
 
 ### Patch Changes
