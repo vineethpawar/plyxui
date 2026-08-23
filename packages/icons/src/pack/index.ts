@@ -156,3 +156,5 @@ export const seedPack = {
 } satisfies Record<string, IconDef>;
 
 export type SeedPackName = keyof typeof seedPack;
+
+export { lucidePack, type LucidePackName } from "./lucide";
