@@ -3,9 +3,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { getAllDocs, getDocBySlug } from "../../lib/mdx";
 import { LivePreview } from "../../components/LivePreview";
+import { IconGallery } from "../../components/IconGallery";
 
 // Components MDX files can reference by name (e.g. <LivePreview code="…" />).
-const MDX_COMPONENTS = { LivePreview };
+const MDX_COMPONENTS = { LivePreview, IconGallery };
 
 const MDX_OPTIONS = {
   mdxOptions: {
