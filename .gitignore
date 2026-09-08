@@ -31,3 +31,6 @@ yarn-debug.log*
 
 # misc
 *.tsbuildinfo
+
+# Vercel CLI link (project/org ids) — local only
+.vercel

@@ -9,6 +9,7 @@
  * renders) so the gallery works without a ThemeProvider in the MDX tree.
  */
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { registerIcons, snapshotRegistry, type IconDef, type IconElement } from "@plyxui/icons";
 import { seedPack, lucidePack } from "@plyxui/icons/pack";
 
@@ -95,6 +96,9 @@ function CopyRow({ label, code }: { label: string; code: string }) {
 }
 
 function IconPopup({ name, def, aliases, onClose }: { name: string; def: IconDef; aliases: string[]; onClose: () => void }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -103,7 +107,11 @@ function IconPopup({ name, def, aliases, onClose }: { name: string; def: IconDef
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  return (
+  if (!mounted) return null;
+
+  // Portal to body: rendered inline in the MDX tree, the dialog would sit
+  // inside containers whose stacking contexts it has no reason to inherit.
+  return createPortal(
     <div
       onClick={onClose}
       role="dialog"
@@ -112,7 +120,11 @@ function IconPopup({ name, def, aliases, onClose }: { name: string; def: IconDef
         position: "fixed",
         inset: 0,
         zIndex: 80,
-        background: "rgba(0,0,0,0.55)",
+        // Dim *and* blur: a flat scrim leaves the grid behind fully legible,
+        // which competes with the icon being inspected.
+        background: "rgba(0,0,0,0.62)",
+        backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -180,7 +192,8 @@ function IconPopup({ name, def, aliases, onClose }: { name: string; def: IconDef
         <CopyRow label="Sized + themed" code={`<Icon name="${name}" size={24} color="primaryOrange" />`} />
         <CopyRow label="Boot (once per app)" code={`import { registerIcons } from "@plyxui/icons"; import { lucidePack } from "@plyxui/icons/pack"; registerIcons(lucidePack);`} />
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
