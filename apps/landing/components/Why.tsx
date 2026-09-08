@@ -1,6 +1,6 @@
 export default function Why() {
   return (
-    <section className="section">
+    <section className="section" data-hover="lift">
       <p className="eyebrow">Why this exists</p>
       <h2 className="h2">Modern apps want three things from a UI library. Most pick one.</h2>
       <p className="lead" style={{ marginBottom: 40 }}>

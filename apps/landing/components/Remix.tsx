@@ -1,6 +1,6 @@
 export default function Remix() {
   return (
-    <section className="section" id="remix">
+    <section className="section" id="remix" data-hover="shift">
       <p className="eyebrow">The remix layer</p>
       <h2 className="h2">Themes are remixable. Sharing is one link.</h2>
       <p className="lead" style={{ marginBottom: 32 }}>

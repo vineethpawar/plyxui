@@ -1,6 +1,6 @@
 export default function HowItWorks() {
   return (
-    <section className="section" id="how">
+    <section className="section" id="how" data-hover="step">
       <p className="eyebrow">The idea</p>
       <h2 className="h2">Three packages get you a working app. Two more get you a polished one.</h2>
       <p className="lead" style={{ marginBottom: 56 }}>

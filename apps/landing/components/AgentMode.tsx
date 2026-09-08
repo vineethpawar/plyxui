@@ -1,6 +1,6 @@
 export default function AgentMode() {
   return (
-    <section className="section" id="agent">
+    <section className="section" id="agent" data-hover="sheen">
       <p className="eyebrow">Agent layer</p>
       <h2 className="h2">A first-party MCP server.</h2>
       <p className="lead" style={{ marginBottom: 32 }}>

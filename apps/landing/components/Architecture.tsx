@@ -1,6 +1,6 @@
 export default function Architecture() {
   return (
-    <section className="section">
+    <section className="section" data-hover="depth">
       <p className="eyebrow">Under the hood</p>
       <h2 className="h2">A turborepo with intentional seams.</h2>
       <p className="lead" style={{ marginBottom: 32 }}>

@@ -13,7 +13,7 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <section className="section" id="features">
+    <section className="section" id="features" data-hover="glow">
       <p className="eyebrow">What's in the box</p>
       <h2 className="h2">Ten choices the next library you reach for probably didn't make.</h2>
       <p className="lead" style={{ marginBottom: 48 }}>
