@@ -42,9 +42,8 @@ export interface OmniColorTokens {
 }
 
 /**
- * Default token table. The light + dark values here mirror what I've shipped
- * in BCI tooling for over a year; they survive both bright clinical rooms
- * and dim recording booths. Tweak liberally.
+ * Default token table. The light + dark values are tuned to hold up in both
+ * very bright rooms and very dim ones. Tweak liberally.
  *
  * Pinned to globalThis so duplicate bundled copies of @plyxui/core (Snackager
  * inlines a copy per consumer package) share one mutable table — otherwise
