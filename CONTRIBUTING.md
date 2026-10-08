@@ -17,11 +17,17 @@ because the library supports both and a theme that only works in one is half fin
 
 ## The steps
 
-### 1. Fork
+### 1. Star it, then fork it
 
-Open [github.com/vineethpawar/plyxui](https://github.com/vineethpawar/plyxui) and press
-**Fork**, top right. That makes a copy of this project under your own account. You can
-change anything in your copy; nobody else sees it until you ask.
+Open [github.com/vineethpawar/plyxui](https://github.com/vineethpawar/plyxui).
+
+Press **Star**, top right. A star is a bookmark: it puts the project on your own starred
+list so you can find it again, and it is how you keep track of the projects you use.
+
+Then press **Fork**, next to it. That makes a copy of this project under your own account.
+You can change anything in your copy; nobody else sees it until you ask. Forking is not
+optional here, and not politeness: you cannot push to a repository you do not own, so the
+fork is what gives you somewhere to push.
 
 ### 2. Clone your fork
 
@@ -121,8 +127,7 @@ them are genuinely useful, and so is any documentation sentence that confused yo
 confused you it will confuse the next person, and you are the one who can still remember
 why.
 
-## A note on stars
+## Where your starred list lives
 
-If this is useful to you, star it. If it is not, do not. A star that was asked for tells
-nobody anything, and GitHub treats organised starring as inauthentic activity, which helps
-neither of us.
+Your stars are at [github.com/stars](https://github.com/stars). It is worth keeping:
+six months from now it is the fastest way back to a library you half remember using.
