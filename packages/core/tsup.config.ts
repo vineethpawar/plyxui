@@ -7,12 +7,14 @@ import { defineConfig } from "tsup";
 //   dist/tokens.{js,cjs,d.ts}    -> `@plyxui/core/tokens`
 //   dist/types.{js,cjs,d.ts}     -> `@plyxui/core/types`
 //   dist/hooks.{js,cjs,d.ts}     -> `@plyxui/core/hooks`
+//   dist/themes.{js,cjs,d.ts}    -> `@plyxui/core/themes`
 export default defineConfig({
   entry: {
     index: "src/index.ts",
     tokens: "src/tokens/index.ts",
     types: "src/types/index.ts",
     hooks: "src/hooks/index.ts",
+    themes: "src/themes/index.ts",
   },
   format: ["esm", "cjs"],
   // package.json has `"type": "module"`, so .js is ESM, .cjs is CJS.

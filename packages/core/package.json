@@ -31,6 +31,12 @@
       "import": "./dist/hooks.js",
       "require": "./dist/hooks.cjs",
       "default": "./dist/hooks.js"
+    },
+    "./themes": {
+      "types": "./dist/themes.d.ts",
+      "import": "./dist/themes.js",
+      "require": "./dist/themes.cjs",
+      "default": "./dist/themes.js"
     }
   },
   "files": [
@@ -42,10 +48,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "node scripts/build-themes.mjs && tsup",
     "check-types": "tsc --noEmit",
     "lint": "echo 'todo: wire eslint'",
-    "clean": "rm -rf dist .turbo *.tsbuildinfo"
+    "clean": "rm -rf dist .turbo *.tsbuildinfo",
+    "themes": "node scripts/build-themes.mjs"
   },
   "peerDependencies": {
     "react": ">=18"
