@@ -447,17 +447,27 @@ export const COMPONENTS: Entry[] = [
     importPath: "@plyxui/plugins",
     name: "CommandPalette",
     category: "comps",
-    description: "Cmd+K launcher with substring search and keyboard navigation.",
+    description: "Cmd+K launcher with substring search and keyboard navigation; items may carry a description, a monospaced hint, a shortcut chip, a badge and a Cmd+Enter action.",
     platforms: ["web"],
     source: "packages/plugins/src/CommandPalette/index.tsx",
-    tokens: ["surfaceFill", "stroke", "text", "textMuted"],
+    tokens: ["surfaceFill", "containerFill", "primaryFill", "stroke", "text", "textMuted", "primaryAccent", "statusError"],
     props: [
       { name: "items", type: "CommandItem[]", required: true },
       { name: "open", type: "boolean", required: true },
       { name: "onClose", type: "() => void", required: true },
       { name: "placeholder", type: "string", required: false },
+      { name: "width", type: "number", required: false },
+      { name: "leading", type: "ReactNode", required: false },
+      { name: "trailing", type: "ReactNode", required: false },
+      { name: "footer", type: "ReactNode", required: false },
     ],
-    examples: [{ title: "Cmd+K", code: '<CommandPalette open={open} onClose={() => setOpen(false)} items={commands.map(c => ({ id: c.id, label: c.label, onSelect: c.run }))} />' }],
+    examples: [
+      { title: "Cmd+K", code: '<CommandPalette open={open} onClose={() => setOpen(false)} items={commands.map(c => ({ id: c.id, label: c.label, onSelect: c.run }))} />' },
+      {
+        title: "Rich items",
+        code: '<CommandPalette open={open} onClose={close} width={720} items={[{ id: "deploy", group: "Box", label: "Deploy tag to box", description: "promotes a tag, suite is the gate", hint: "box_deploy.sh", shortcut: "⌘D", badge: { label: "TAG, NOT BRANCH" }, onSelect: deploy }]} footer={<span>↑↓ navigate · ↵ run · esc close</span>} />',
+      },
+    ],
   },
 ];
 

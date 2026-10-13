@@ -94,13 +94,63 @@ function App() {
 | `icon` | no | Icon name from the `@plyxui/icons` registry. |
 | `keywords` | no | Extra strings included in substring matching. Useful for aliases ("logout", "signout", "log out"). |
 | `disabled` | no | Greys out the item; Enter / click are ignored. |
+| `description` | no | A second line under the label: what the command does, in a sentence. Searched. |
+| `hint` | no | Right-aligned, monospaced: the command a GUI action wraps (`box.sh deploy`), or any short reference. Searched, so typing the CLI finds the action. |
+| `shortcut` | no | A key chip at the far right (`⌘D`). Display only — wire the shortcut itself in your app. |
+| `badge` | no | `{ label, tone? }`, a short tag after the label for commands with consequences. `tone: "danger"` fills it with `statusError`; the default is outlined. |
+| `onAltSelect` | no | Runs on `⌘↵` / `Ctrl+↵` instead of `onSelect` — a second way to run the same command. |
+
+A two-line item (one with a `description`) marks the active row with an accent bar as well as the fill.
+Lists without the new fields render exactly as they did.
+
+## Palette props
+
+| Prop | Default | What |
+|---|---|---|
+| `open`, `onClose`, `items` | — | Required. |
+| `placeholder` | `"Type a command…"` | Input placeholder. |
+| `width` | `560` | Panel width in px. |
+| `leading` | search icon | Replaces the icon at the start of the input. |
+| `trailing` | — | Rendered at the end of the input row: a `⌘K` chip, a count. |
+| `footer` | — | Rendered under the list: key hints, a note. |
+
+```tsx
+<CommandPalette
+  open={open}
+  onClose={close}
+  width={720}
+  trailing={<kbd>⌘K</kbd>}
+  footer={<><span>↑↓ navigate</span><span>↵ run</span><span>⌘↵ run elsewhere</span><span>esc close</span></>}
+  items={[
+    {
+      id: "deploy",
+      group: "Box",
+      label: "Deploy tag to box",
+      description: "promotes a tag over a read-only key, suite is the gate, rolls back on fail",
+      hint: "box_deploy.sh",
+      shortcut: "⌘D",
+      badge: { label: "TAG, NOT BRANCH" },
+      onSelect: deploy,
+    },
+    {
+      id: "live",
+      group: "Run",
+      label: "Live run",
+      description: "real buys; needs a fresh authorisation every time",
+      hint: "box.sh live",
+      badge: { label: "ARMS THE BOX", tone: "danger" },
+      onSelect: arm,
+    },
+  ]}
+/>
+```
 
 ## Matching
 
 Items are ranked by:
 
-- Prefix match on label or any keyword: highest.
-- Substring match on label or any keyword: middle.
+- Prefix match on the label: highest.
+- Substring match on the label, any keyword, the `hint` or the `description`: middle.
 - No match: filtered out.
 
 This is deliberately simple. Sub-200-item lists feel snappy. If you have thousands of items and need fzf-style fuzzy matching, file an issue.
@@ -111,5 +161,6 @@ This is deliberately simple. Sub-200-item lists feel snappy. If you have thousan
 |---|---|
 | `↑` / `↓` | Move selection |
 | `Enter` | Run the selected item |
+| `⌘Enter` / `Ctrl+Enter` | Run the item's `onAltSelect`, or `onSelect` if it has none |
 | `Esc` | Close the palette |
 | `Click outside` | Close the palette |
