@@ -1,6 +1,6 @@
 {
   "name": "@plyxui/mcp",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Model Context Protocol server for plyxui. Lets coding agents list, search, install, and lint components conversationally.",
   "license": "MIT",
   "type": "module",
